@@ -13,7 +13,7 @@
 #include "timers.h"
 #include "interrupts.h"
 
-#define intPerSec 61 //number of interrupts per second with prescaler of 64
+#define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
 
 volatile char secondtick = 0; 
@@ -21,8 +21,8 @@ volatile unsigned int seconds = 0;
 volatile unsigned int minutes = 0;
 
 ISR(TIMER0_OVF_vect){
-    secondtick++;
-    if(secondtick == intPerSec){
+    secondtick++; 
+    if(secondtick == ticksPerSec){
         secondtick = 0;
         seconds++;
     }

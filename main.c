@@ -47,7 +47,7 @@ ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
   static u8 ct0 = 0xFF, ct1 = 0xFF;	// 8 * 2bit counters
   u8 i;
 
-  i = ~PINC;				// read keys (low active)
+  i = ~PIND;				// read keys (low active)
   i ^= key_state;			// key changed ?
   ct0 = ~( ct0 & i );			// reset or count ct0
   ct1 = ct0 ^ (ct1 & i);		// reset or count ct1
@@ -70,8 +70,8 @@ int main(void){
     lcd_init(LCD_DISP_ON);
     lcd_clrscr();
 
-    DDRC &= ~((1<<DD4)|(1<<DD5)); //setting PC4 and PC5 as input
-    PORTC |= (1<<PORT4) | (1<<PORT5); //enable internal pullup-resistor for PC4
+    DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5)); //setting PD0 and PD1 as input
+    PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5)); //enable internal pullup-resistor for PD0 and PD1
     
 
     sei(); //enable global interrupts
@@ -87,11 +87,14 @@ int main(void){
         lcd_putc(':');
         placeNum(hours,0,0);
         
-        if( get_key_press(1<<PINC4)){ //check if seconds pushbutton is pressed
+        if( get_key_press(1<<PIND1)){ //check if seconds pushbutton is pressed
             minutes++;
         }
-        if( get_key_press(1<<PINC5)){
+        if( get_key_press(1<<PIND0)){
             seconds++;
+        }
+        if( get_key_press(1<<PIND5)){
+            hours++;
         }
         
         if(minutes == 60){
@@ -99,7 +102,7 @@ int main(void){
             hours++;
         }
         if( hours == 24){
-            hours == 0;
+            hours = 0;
         }
 
     } 

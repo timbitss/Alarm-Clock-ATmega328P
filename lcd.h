@@ -128,7 +128,7 @@
 #if LCD_IO_MODE
 
 #ifndef LCD_PORT
-#define LCD_PORT         PORTC        /**< port for the LCD lines   */
+#define LCD_PORT         PORTC       /**< port for the LCD lines   */
 #endif
 #ifndef LCD_DATA0_PORT
 #define LCD_DATA0_PORT   LCD_PORT     /**< port for 4bit data bit 0 */

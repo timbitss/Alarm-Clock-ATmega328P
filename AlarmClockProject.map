@@ -304,7 +304,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x50e
+.text           0x00000000      0x52a
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -425,42 +425,42 @@ END GROUP
                 0x0000026e       0x62 main.o
                 0x0000026e                __vector_7
  .text.startup.main
-                0x000002d0       0xea main.o
+                0x000002d0      0x106 main.o
                 0x000002d0                main
  .text.initializeSecondsTimer
-                0x000003ba        0x8 timers.o
-                0x000003ba                initializeSecondsTimer
+                0x000003d6        0x8 timers.o
+                0x000003d6                initializeSecondsTimer
  .text.initializeDebounceTimer
-                0x000003c2       0x18 timers.o
-                0x000003c2                initializeDebounceTimer
+                0x000003de       0x18 timers.o
+                0x000003de                initializeDebounceTimer
  .text.get_key_press
-                0x000003da       0x12 utilities.o
-                0x000003da                get_key_press
+                0x000003f6       0x12 utilities.o
+                0x000003f6                get_key_press
  .text.placeNum
-                0x000003ec       0x76 utilities.o
-                0x000003ec                placeNum
+                0x00000408       0x76 utilities.o
+                0x00000408                placeNum
  .text.libgcc.div
-                0x00000462       0x28 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x00000462                __udivmodhi4
+                0x0000047e       0x28 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x0000047e                __udivmodhi4
  .text.avr-libc
-                0x0000048a       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o)
-                0x0000048a                __itoa
-                0x0000048a                itoa
+                0x000004a6       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x000004a6                __itoa
+                0x000004a6                itoa
  .text.avr-libc
-                0x000004a0       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x000004a0                __itoa_ncheck
+                0x000004bc       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x000004bc                __itoa_ncheck
  .text.avr-libc
-                0x000004b6       0x34 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x000004b6                __utoa_ncheck
-                0x000004b8                __utoa_common
+                0x000004d2       0x34 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x000004d2                __utoa_ncheck
+                0x000004d4                __utoa_common
  .text.avr-libc
-                0x000004ea       0x20 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x000004ea                strrev
-                0x0000050a                . = ALIGN (0x2)
+                0x00000506       0x20 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000506                strrev
+                0x00000526                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000050a        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x0000050a                _exit
-                0x0000050a                exit
+ .fini9         0x00000526        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000526                _exit
+                0x00000526                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -479,11 +479,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000050a        0x4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000526        0x4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000050e                _etext = .
+                0x0000052a                _etext = .
 
-.data           0x00800100        0x2 load address 0x0000050e
+.data           0x00800100        0x2 load address 0x0000052a
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -516,8 +516,8 @@ END GROUP
                 0x00800109                key_press
                 0x0080010a                key_state
                 0x0080010b                PROVIDE (__bss_end, .)
-                0x0000050e                __data_load_start = LOADADDR (.data)
-                0x00000510                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000052a                __data_load_start = LOADADDR (.data)
+                0x0000052c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0080010b        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -608,14 +608,14 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1441
+.debug_info     0x00000000     0x1454
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_info    0x000005f4       0x83 interrupts.o
  .debug_info    0x00000677      0x77f lcd.o
- .debug_info    0x00000df6      0x2ef main.o
- .debug_info    0x000010e5       0x99 timers.o
- .debug_info    0x0000117e      0x2c3 utilities.o
+ .debug_info    0x00000df6      0x302 main.o
+ .debug_info    0x000010f8       0x99 timers.o
+ .debug_info    0x00001191      0x2c3 utilities.o
 
 .debug_abbrev   0x00000000      0xbec
  *(.debug_abbrev)
@@ -626,14 +626,14 @@ END GROUP
  .debug_abbrev  0x000009f1       0x51 timers.o
  .debug_abbrev  0x00000a42      0x1aa utilities.o
 
-.debug_line     0x00000000      0x800
+.debug_line     0x00000000      0x80c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0x1a c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_line    0x0000001a       0x7a interrupts.o
  .debug_line    0x00000094      0x3cd lcd.o
- .debug_line    0x00000461      0x1c7 main.o
- .debug_line    0x00000628       0x9e timers.o
- .debug_line    0x000006c6      0x13a utilities.o
+ .debug_line    0x00000461      0x1d3 main.o
+ .debug_line    0x00000634       0x9e timers.o
+ .debug_line    0x000006d2      0x13a utilities.o
 
 .debug_frame    0x00000000      0x260
  *(.debug_frame)

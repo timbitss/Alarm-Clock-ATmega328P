@@ -1,5 +1,4 @@
 #include "interrupts.h"
-#include <avr/io.h>
 
 void initializeSecondsInterrupt(void){
     

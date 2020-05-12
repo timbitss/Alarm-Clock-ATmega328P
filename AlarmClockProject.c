@@ -71,7 +71,7 @@ int main(void){
 
     char buff[2];
 
-    PORTC |= (1<<PORT3); //enable internal pullup-resistor for PORTC3
+    
 
     key_state = 0; //buttons not pressed initially	
 
@@ -82,6 +82,9 @@ int main(void){
    lcd_init(LCD_DISP_ON);
    lcd_clrscr();
    
+   DDRC &= ~(1<<DD4); //setting PC4 as input
+   PORTC |= (1<<PORT4); //enable internal pullup-resistor for PC4
+
    sei(); //enable global interrupts
  
 
@@ -89,10 +92,10 @@ int main(void){
         
     lcd_gotoxy(4,0);
     itoa( seconds % 10, buff, 10); //puts first digit in buffer (integer to character string)
-    lcd_puts(buff); //displays first digit
+    lcd_puts(buff); //displays first digit of seconds
     lcd_gotoxy(3,0);
     itoa( seconds / 10, buff, 10); //puts second digit in buffer
-    lcd_puts(buff); //displays second digit
+    lcd_puts(buff); //displays second digit of seconds
     lcd_gotoxy(2,0);
     lcd_putc(':');
     lcd_gotoxy(1,0);
@@ -100,11 +103,11 @@ int main(void){
     lcd_puts(buff); //displays first digit
     lcd_gotoxy(0,0);
     itoa( minutes / 10, buff, 10); //puts second digit in buffer
-    lcd_puts(buff); //displays second digit
+    lcd_puts(buff); //displays second digit of seconds
     
     
 
-    if( get_key_press(1<<PINC3)){ //check if seconds pushbutton is pressed
+    if( get_key_press(1<<PINC4)){ //check if seconds pushbutton is pressed
         seconds++;
     }
 

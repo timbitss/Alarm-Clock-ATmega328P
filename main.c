@@ -86,6 +86,8 @@ int main(void){
         lcd_gotoxy(2,0);
         lcd_putc(':');
         placeNum(hours,0,0);
+        lcd_gotoxy(11,1);
+        lcd_puts("Alarm");
         
         if( get_key_press(1<<PIND1)){ //check if seconds pushbutton is pressed
             minutes++;

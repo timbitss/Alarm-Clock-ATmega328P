@@ -9,7 +9,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#include <util/atomic.h> //to avoid function being interrupted
+
 
 #include "lcd.h"
 #include "timers.h"
@@ -20,9 +20,9 @@
 
 #define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
-
-volatile unsigned int seconds = 0; //for main function
+unsigned int seconds = 0; //for main function
 volatile unsigned int minutes = 0; //for main function
+
 
 
 ISR(TIMER0_OVF_vect){ 
@@ -59,7 +59,6 @@ ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
 int main(void){
 
 
-    char buff[2];
     key_state = 0; //buttons not pressed initially	
 
 
@@ -78,20 +77,10 @@ int main(void){
 
     while(1){ //loops forever
         
-        lcd_gotoxy(4,0);
-        itoa( seconds % 10, buff, 10); //puts first digit in buffer (integer to character string)
-        lcd_puts(buff); //displays first digit of seconds
-        lcd_gotoxy(3,0);
-        itoa( seconds / 10, buff, 10); //puts second digit in buffer
-        lcd_puts(buff); //displays second digit of seconds
+        placeNum(seconds,3,0);
         lcd_gotoxy(2,0);
         lcd_putc(':');
-        lcd_gotoxy(1,0);
-        itoa( minutes % 10, buff, 10); //puts first digit in buffer (integer to character string)
-        lcd_puts(buff); //displays first digit
-        lcd_gotoxy(0,0);
-        itoa( minutes / 10, buff, 10); //puts second digit in buffer
-        lcd_puts(buff); //displays second digit of seconds
+        placeNum(minutes,0,0);
         
         if( get_key_press(1<<PINC4)){ //check if seconds pushbutton is pressed
             minutes++;

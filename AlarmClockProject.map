@@ -3,15 +3,15 @@ Archive member included to satisfy reference by file (symbol)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodqi4.o)
                               C:\Users\Timothy\Desktop\AVR-Programming\AVR-Programming-Library/USART.o (__udivmodqi4)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                              AlarmClockProject.o (__udivmodhi4)
+                              utilities.o (__udivmodhi4)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
                               c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o (exit)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                              AlarmClockProject.o (__do_copy_data)
+                              main.o (__do_copy_data)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              AlarmClockProject.o (__do_clear_bss)
+                              main.o (__do_clear_bss)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o)
-                              AlarmClockProject.o (itoa)
+                              utilities.o (itoa)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
                               c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o) (__itoa_ncheck)
 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
@@ -29,9 +29,6 @@ Discarded input sections
 
  .data          0x00000000        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .bss           0x00000000        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
- .text          0x00000000        0x0 AlarmClockProject.o
- .data          0x00000000        0x0 AlarmClockProject.o
- .bss           0x00000000        0x0 AlarmClockProject.o
  .text          0x00000000        0x0 interrupts.o
  .data          0x00000000        0x0 interrupts.o
  .bss           0x00000000        0x0 interrupts.o
@@ -46,6 +43,9 @@ Discarded input sections
                 0x00000000        0x6 lcd.o
  .text.lcd_puts_p
                 0x00000000       0x1e lcd.o
+ .text          0x00000000        0x0 main.o
+ .data          0x00000000        0x0 main.o
+ .bss           0x00000000        0x0 main.o
  .text          0x00000000        0x0 timers.o
  .data          0x00000000        0x0 timers.o
  .bss           0x00000000        0x0 timers.o
@@ -194,9 +194,9 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
-LOAD AlarmClockProject.o
 LOAD interrupts.o
 LOAD lcd.o
+LOAD main.o
 LOAD timers.o
 LOAD utilities.o
 LOAD C:\Users\Timothy\Desktop\AVR-Programming\AVR-Programming-Library/USART.o
@@ -304,7 +304,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x4f6
+.text           0x00000000      0x4c8
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -389,75 +389,78 @@ END GROUP
                 0x000000a2                __vector_20
                 0x000000a6                . = ALIGN (0x2)
  *(.text.*)
- .text.__vector_16
-                0x000000a6       0x68 AlarmClockProject.o
-                0x000000a6                __vector_16
- .text.__vector_7
-                0x0000010e       0x62 AlarmClockProject.o
-                0x0000010e                __vector_7
- .text.startup.main
-                0x00000170      0x148 AlarmClockProject.o
-                0x00000170                main
  .text.initializeSecondsInterrupt
-                0x000002b8        0x8 interrupts.o
-                0x000002b8                initializeSecondsInterrupt
+                0x000000a6        0x8 interrupts.o
+                0x000000a6                initializeSecondsInterrupt
  .text.toggle_e
-                0x000002c0        0x8 lcd.o
+                0x000000ae        0x8 lcd.o
  .text.lcd_write
-                0x000002c8       0x3e lcd.o
+                0x000000b6       0x3e lcd.o
  .text.lcd_read.constprop.0
-                0x00000306       0x28 lcd.o
+                0x000000f4       0x28 lcd.o
  .text.lcd_waitbusy
-                0x0000032e       0x10 lcd.o
+                0x0000011c       0x10 lcd.o
  .text.lcd_command
-                0x0000033e       0x12 lcd.o
-                0x0000033e                lcd_command
+                0x0000012c       0x12 lcd.o
+                0x0000012c                lcd_command
  .text.lcd_gotoxy
-                0x00000350        0xe lcd.o
-                0x00000350                lcd_gotoxy
+                0x0000013e        0xe lcd.o
+                0x0000013e                lcd_gotoxy
  .text.lcd_clrscr
-                0x0000035e        0x6 lcd.o
-                0x0000035e                lcd_clrscr
+                0x0000014c        0x6 lcd.o
+                0x0000014c                lcd_clrscr
  .text.lcd_putc
-                0x00000364       0x28 lcd.o
-                0x00000364                lcd_putc
+                0x00000152       0x28 lcd.o
+                0x00000152                lcd_putc
  .text.lcd_puts
-                0x0000038c       0x18 lcd.o
-                0x0000038c                lcd_puts
+                0x0000017a       0x18 lcd.o
+                0x0000017a                lcd_puts
  .text.lcd_init
-                0x000003a4       0x74 lcd.o
-                0x000003a4                lcd_init
+                0x00000192       0x74 lcd.o
+                0x00000192                lcd_init
+ .text.__vector_16
+                0x00000206       0x68 main.o
+                0x00000206                __vector_16
+ .text.__vector_7
+                0x0000026e       0x62 main.o
+                0x0000026e                __vector_7
+ .text.startup.main
+                0x000002d0       0xa4 main.o
+                0x000002d0                main
  .text.initializeSecondsTimer
-                0x00000418        0x8 timers.o
-                0x00000418                initializeSecondsTimer
+                0x00000374        0x8 timers.o
+                0x00000374                initializeSecondsTimer
  .text.initializeDebounceTimer
-                0x00000420       0x18 timers.o
-                0x00000420                initializeDebounceTimer
+                0x0000037c       0x18 timers.o
+                0x0000037c                initializeDebounceTimer
  .text.get_key_press
-                0x00000438       0x12 utilities.o
-                0x00000438                get_key_press
+                0x00000394       0x12 utilities.o
+                0x00000394                get_key_press
+ .text.placeNum
+                0x000003a6       0x76 utilities.o
+                0x000003a6                placeNum
  .text.libgcc.div
-                0x0000044a       0x28 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000044a                __udivmodhi4
+                0x0000041c       0x28 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x0000041c                __udivmodhi4
  .text.avr-libc
-                0x00000472       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o)
-                0x00000472                __itoa
-                0x00000472                itoa
+                0x00000444       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa.o)
+                0x00000444                __itoa
+                0x00000444                itoa
  .text.avr-libc
-                0x00000488       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00000488                __itoa_ncheck
+                0x0000045a       0x16 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x0000045a                __itoa_ncheck
  .text.avr-libc
-                0x0000049e       0x34 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x0000049e                __utoa_ncheck
-                0x000004a0                __utoa_common
+                0x00000470       0x34 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00000470                __utoa_ncheck
+                0x00000472                __utoa_common
  .text.avr-libc
-                0x000004d2       0x20 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x000004d2                strrev
-                0x000004f2                . = ALIGN (0x2)
+                0x000004a4       0x20 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000004a4                strrev
+                0x000004c4                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000004f2        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000004f2                _exit
-                0x000004f2                exit
+ .fini9         0x000004c4        0x0 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000004c4                _exit
+                0x000004c4                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -476,18 +479,18 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000004f2        0x4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000004c4        0x4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000004f6                _etext = .
+                0x000004c8                _etext = .
 
-.data           0x00800100        0x2 load address 0x000004f6
+.data           0x00800100        0x2 load address 0x000004c8
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.ct1.1947
-                0x00800100        0x1 AlarmClockProject.o
- .data.ct0.1946
-                0x00800101        0x1 AlarmClockProject.o
+ .data.ct1.1951
+                0x00800100        0x1 main.o
+ .data.ct0.1950
+                0x00800101        0x1 main.o
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
@@ -500,19 +503,19 @@ END GROUP
                 0x00800102                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.secondtick.1940
-                0x00800102        0x1 AlarmClockProject.o
- .bss.minutes   0x00800103        0x2 AlarmClockProject.o
+ .bss.secondtick.1944
+                0x00800102        0x1 main.o
+ .bss.minutes   0x00800103        0x2 main.o
                 0x00800103                minutes
- .bss.seconds   0x00800105        0x2 AlarmClockProject.o
+ .bss.seconds   0x00800105        0x2 main.o
                 0x00800105                seconds
  *(COMMON)
  COMMON         0x00800107        0x2 utilities.o
                 0x00800107                key_press
                 0x00800108                key_state
                 0x00800109                PROVIDE (__bss_end, .)
-                0x000004f6                __data_load_start = LOADADDR (.data)
-                0x000004f8                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000004c8                __data_load_start = LOADADDR (.data)
+                0x000004ca                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800109        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -560,10 +563,10 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 AlarmClockProject.o
+ .comment       0x00000000       0x30 interrupts.o
                                  0x31 (size before relaxing)
- .comment       0x00000030       0x31 interrupts.o
  .comment       0x00000030       0x31 lcd.o
+ .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 timers.o
  .comment       0x00000030       0x31 utilities.o
 
@@ -587,76 +590,76 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x120
+.debug_aranges  0x00000000      0x128
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x30 AlarmClockProject.o
+                0x00000000       0x20 interrupts.o
  .debug_aranges
-                0x00000030       0x20 interrupts.o
+                0x00000020       0x88 lcd.o
  .debug_aranges
-                0x00000050       0x88 lcd.o
+                0x000000a8       0x30 main.o
  .debug_aranges
                 0x000000d8       0x28 timers.o
  .debug_aranges
-                0x00000100       0x20 utilities.o
+                0x00000100       0x28 utilities.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x13fb
+.debug_info     0x00000000     0x13eb
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
- .debug_info    0x000005f4      0x418 AlarmClockProject.o
- .debug_info    0x00000a0c       0x83 interrupts.o
- .debug_info    0x00000a8f      0x77f lcd.o
- .debug_info    0x0000120e       0x99 timers.o
- .debug_info    0x000012a7      0x154 utilities.o
+ .debug_info    0x000005f4       0x83 interrupts.o
+ .debug_info    0x00000677      0x77f lcd.o
+ .debug_info    0x00000df6      0x299 main.o
+ .debug_info    0x0000108f       0x99 timers.o
+ .debug_info    0x00001128      0x2c3 utilities.o
 
-.debug_abbrev   0x00000000      0xb5f
+.debug_abbrev   0x00000000      0xbec
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
- .debug_abbrev  0x000005a2      0x15d AlarmClockProject.o
- .debug_abbrev  0x000006ff       0x51 interrupts.o
- .debug_abbrev  0x00000750      0x2be lcd.o
- .debug_abbrev  0x00000a0e       0x51 timers.o
- .debug_abbrev  0x00000a5f      0x100 utilities.o
+ .debug_abbrev  0x000005a2       0x51 interrupts.o
+ .debug_abbrev  0x000005f3      0x2be lcd.o
+ .debug_abbrev  0x000008b1      0x140 main.o
+ .debug_abbrev  0x000009f1       0x51 timers.o
+ .debug_abbrev  0x00000a42      0x1aa utilities.o
 
-.debug_line     0x00000000      0x7e8
+.debug_line     0x00000000      0x7dc
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000       0x1a c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
- .debug_line    0x0000001a      0x1f2 AlarmClockProject.o
- .debug_line    0x0000020c       0x7a interrupts.o
- .debug_line    0x00000286      0x3cd lcd.o
- .debug_line    0x00000653       0x9e timers.o
- .debug_line    0x000006f1       0xf7 utilities.o
+ .debug_line    0x0000001a       0x7a interrupts.o
+ .debug_line    0x00000094      0x3cd lcd.o
+ .debug_line    0x00000461      0x1a3 main.o
+ .debug_line    0x00000604       0x9e timers.o
+ .debug_line    0x000006a2      0x13a utilities.o
 
-.debug_frame    0x00000000      0x23c
+.debug_frame    0x00000000      0x260
  *(.debug_frame)
- .debug_frame   0x00000000       0x88 AlarmClockProject.o
- .debug_frame   0x00000088       0x24 interrupts.o
- .debug_frame   0x000000ac      0x138 lcd.o
- .debug_frame   0x000001e4       0x34 timers.o
- .debug_frame   0x00000218       0x24 utilities.o
+ .debug_frame   0x00000000       0x24 interrupts.o
+ .debug_frame   0x00000024      0x138 lcd.o
+ .debug_frame   0x0000015c       0x78 main.o
+ .debug_frame   0x000001d4       0x34 timers.o
+ .debug_frame   0x00000208       0x58 utilities.o
 
-.debug_str      0x00000000      0x567
+.debug_str      0x00000000      0x571
  *(.debug_str)
  .debug_str     0x00000000      0x208 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
- .debug_str     0x00000208      0x20b AlarmClockProject.o
-                                0x24e (size before relaxing)
- .debug_str     0x00000413        0xd interrupts.o
+ .debug_str     0x00000208      0x138 interrupts.o
                                 0x16c (size before relaxing)
- .debug_str     0x00000420       0xff lcd.o
+ .debug_str     0x00000340      0x130 lcd.o
                                 0x27e (size before relaxing)
- .debug_str     0x0000051f        0x9 timers.o
+ .debug_str     0x00000470       0x98 main.o
+                                0x229 (size before relaxing)
+ .debug_str     0x00000508        0x9 timers.o
                                 0x17c (size before relaxing)
- .debug_str     0x00000528       0x3f utilities.o
-                                0x1af (size before relaxing)
+ .debug_str     0x00000511       0x60 utilities.o
+                                0x1f2 (size before relaxing)
 
-.debug_loc      0x00000000      0x7a5
+.debug_loc      0x00000000      0x867
  *(.debug_loc)
- .debug_loc     0x00000000      0x13a AlarmClockProject.o
- .debug_loc     0x0000013a      0x619 lcd.o
- .debug_loc     0x00000753       0x52 utilities.o
+ .debug_loc     0x00000000      0x619 lcd.o
+ .debug_loc     0x00000619       0xf2 main.o
+ .debug_loc     0x0000070b      0x15c utilities.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -676,13 +679,13 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xe8
+.debug_ranges   0x00000000       0xf0
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x20 AlarmClockProject.o
- .debug_ranges  0x00000020       0x10 interrupts.o
- .debug_ranges  0x00000030       0x90 lcd.o
+ .debug_ranges  0x00000000       0x10 interrupts.o
+ .debug_ranges  0x00000010       0x90 lcd.o
+ .debug_ranges  0x000000a0       0x20 main.o
  .debug_ranges  0x000000c0       0x18 timers.o
- .debug_ranges  0x000000d8       0x10 utilities.o
+ .debug_ranges  0x000000d8       0x18 utilities.o
 
 .debug_macro
  *(.debug_macro)

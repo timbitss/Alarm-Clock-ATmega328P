@@ -12,3 +12,15 @@ u8 get_key_press( u8 key_mask )
   }
   return key_mask;
 }
+
+void placeNum(unsigned int number, uint8_t startx, uint8_t y){ //places hours/minutes/seconds)
+        
+        char buff[2]; //to store each digit
+        lcd_gotoxy(startx + 1,y);
+        itoa( number % 10, buff, 10); //puts first digit in buffer (integer to character string)
+        lcd_puts(buff); //displays first digit of seconds
+        lcd_gotoxy(startx,y);
+        itoa( number / 10, buff, 10); //puts second digit in buffer
+        lcd_puts(buff); //displays second digit of seconds
+
+} 

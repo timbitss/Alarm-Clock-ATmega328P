@@ -24,7 +24,6 @@ volatile char secondtick = 0; //acts as interrupt counter for Timer 0
 volatile unsigned int seconds = 0;
 volatile unsigned int minutes = 0;
 
-volatile uint8_t button_press; //informs main program when button is pressed
 
 ISR(TIMER0_OVF_vect){ 
     secondtick++; 
@@ -43,7 +42,7 @@ u8 key_state;				// debounced and inverted key state:
 u8 key_press;				// key press detect
 
 
-ISR( TIMER2_COMPA_vect )		// every 10ms
+ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
 {
   static u8 ct0 = 0xFF, ct1 = 0xFF;	// 8 * 2bit counters
   u8 i;
@@ -99,8 +98,6 @@ int main(void){
 
     if( get_key_press(1<<PINC3)){ //check if seconds pushbutton is pressed
         seconds++;
-    
-        
     }
 
 

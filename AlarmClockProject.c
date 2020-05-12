@@ -69,16 +69,14 @@ u8 get_key_press( u8 key_mask )
 int main(void){
 
 
-    char buffer[2];
+    char buff[2];
 
     PORTC |= (1<<PORT3); //enable internal pullup-resistor for PORTC3
 
-    TCCR2A = 1<<WGM21;			// T2 Mode 2: CTC
-    TCCR2B = (1<<CS22 | 1<< CS21);		// divide by 256
-    OCR2A = 39;	// 10ms
-    TIMSK2 = 1<<OCIE2A;			// enable T0 interrupt
     key_state = 0; //buttons not pressed initially	
 
+
+   initializeDebounceTimer(); //initializes compare match interrupt as well
    initializeSecondsTimer();
    initializeSecondsInterrupt();
    lcd_init(LCD_DISP_ON);
@@ -89,12 +87,22 @@ int main(void){
 
    while(1){ //loops forever
         
+    lcd_gotoxy(4,0);
+    itoa( seconds % 10, buff, 10); //puts first digit in buffer (integer to character string)
+    lcd_puts(buff); //displays first digit
+    lcd_gotoxy(3,0);
+    itoa( seconds / 10, buff, 10); //puts second digit in buffer
+    lcd_puts(buff); //displays second digit
+    lcd_gotoxy(2,0);
+    lcd_putc(':');
     lcd_gotoxy(1,0);
-    itoa( seconds % 10, buffer, 10); //puts first digit in buffer
-    lcd_puts(buffer); //displays first digit
+    itoa( minutes % 10, buff, 10); //puts first digit in buffer (integer to character string)
+    lcd_puts(buff); //displays first digit
     lcd_gotoxy(0,0);
-    itoa( seconds / 10, buffer, 10); //puts second digit in buffer
-    lcd_puts(buffer); //displays second digit
+    itoa( minutes / 10, buff, 10); //puts second digit in buffer
+    lcd_puts(buff); //displays second digit
+    
+    
 
     if( get_key_press(1<<PINC3)){ //check if seconds pushbutton is pressed
         seconds++;

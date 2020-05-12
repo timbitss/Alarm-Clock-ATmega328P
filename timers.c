@@ -11,6 +11,9 @@ void initializeSecondsTimer(void){
 
 void initializeDebounceTimer(void){
 
-    TCCR2B |= (1 << CS21) ; //initializing Timer 2 to CPU clk / 8 operating in normal mode
+    TCCR2A = 1<<WGM21;			// T2 Mode 2: CTC
+    TCCR2B = (1<<CS22 | 1<< CS21);		// divide by 256
+    OCR2A = 39;	// ~10ms per interrupt
+    TIMSK2 = 1<<OCIE2A;			// enable T2 interrupt
 
 }

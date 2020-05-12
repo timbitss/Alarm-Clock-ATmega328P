@@ -20,9 +20,9 @@
 
 #define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
-unsigned int seconds = 0; //for main function
+volatile unsigned int seconds = 0; //for main function
 volatile unsigned int minutes = 0; //for main function
-
+volatile unsigned int hours = 0;
 
 
 ISR(TIMER0_OVF_vect){ 
@@ -33,9 +33,11 @@ ISR(TIMER0_OVF_vect){
         seconds++;
     }
     if(seconds == 60){
-        seconds = 0;
-        minutes++;
+            seconds = 0;
+            minutes++;
     }
+   
+    
 }
 
 
@@ -77,10 +79,13 @@ int main(void){
 
     while(1){ //loops forever
         
-        placeNum(seconds,3,0);
+        placeNum(seconds,6,0);
+        lcd_gotoxy(5,0);
+        lcd_putc(':');
+        placeNum(minutes,3,0);
         lcd_gotoxy(2,0);
         lcd_putc(':');
-        placeNum(minutes,0,0);
+        placeNum(hours,0,0);
         
         if( get_key_press(1<<PINC4)){ //check if seconds pushbutton is pressed
             minutes++;
@@ -88,8 +93,13 @@ int main(void){
         if( get_key_press(1<<PINC5)){
             seconds++;
         }
-        if( minutes == 60){
-          minutes = 0;
+        
+        if(minutes == 60){
+            minutes = 0;
+            hours++;
+        }
+        if( hours == 24){
+            hours == 0;
         }
 
     } 

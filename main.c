@@ -25,7 +25,7 @@
 volatile unsigned int seconds = 0; //for main function
 volatile unsigned int minutes = 0; //for main function
 volatile unsigned int hours = 0; //for main function
-volatile unsigned int temperature = 0;
+volatile unsigned long temperature = 0;
 
 ISR( TIMER0_OVF_vect ){ 
     static uint8_t secondtick = 0;
@@ -33,6 +33,7 @@ ISR( TIMER0_OVF_vect ){
     if(secondtick == ticksPerSec){
         secondtick = 0;
         seconds++;
+        temperature = ((ADC*500)/(1023)); //update temperature every second
     }
     if(seconds == 60){
             seconds = 0;
@@ -66,16 +67,13 @@ int main(void){
 
 
     key_state = 0; //buttons not pressed initially	
-
-    char buff[10];
-    long temp; //debugging
     
     initializeDebounceTimer(); //initializes compare match interrupt as well
     initializeSecondsTimer();
     initializeSecondsInterrupt();
     lcd_init(LCD_DISP_ON);
     ADCInit();
-    ADCSelectTemp();
+    ADCSelectTemp(); //free running mode
     lcd_clrscr();
     
     DDRC &= ~(1 << DD4); //Set PC4 as input
@@ -97,11 +95,7 @@ int main(void){
         lcd_gotoxy(2,0);
         lcd_putc(':');
         placeNum(hours,0,0);
-        temp = ADC;
-        temp = ((temp*500)/(1023)) - 273;
-        ltoa(temp, buff, 10);
-        lcd_gotoxy(9,0);
-        lcd_puts(buff);
+        placeTemperature(temperature,14,0);
         lcd_gotoxy(11,1);
         lcd_puts("Alarm");
         

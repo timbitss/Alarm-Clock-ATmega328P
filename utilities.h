@@ -13,6 +13,7 @@ extern u8 key_press;				// key press detect
 
 u8 get_key_press( u8 key_mask ); //gets key press from bank of pins
 void placeNum(unsigned int number, uint8_t startx, uint8_t y); //places hours/minutes/seconds
+void placeTemperature(unsigned long number, uint8_t startx, uint8_t y); //places temp
 
 
 

@@ -23,4 +23,11 @@ void placeNum(unsigned int number, uint8_t startx, uint8_t y){ //places hours/mi
         utoa( number / 10, buff, 10); //puts second digit in buffer
         lcd_puts(buff); //displays second digit of seconds
 
-} 
+}
+
+void placeTemperature(unsigned long number, uint8_t startx, uint8_t y){
+        char buff[2];
+        ltoa(number, buff, 10); //converts long to string
+        lcd_gotoxy(startx,y);
+        lcd_puts(buff);
+}

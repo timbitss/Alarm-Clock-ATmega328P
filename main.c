@@ -9,6 +9,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 
 
 #include "lcd.h"
@@ -16,16 +17,17 @@
 #include "interrupts.h"
 #include "utilities.h"
 #include "GlobalDefinitions.h"
+#include "ADC.h"
 
 
 #define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
 volatile unsigned int seconds = 0; //for main function
 volatile unsigned int minutes = 0; //for main function
-volatile unsigned int hours = 0;
+volatile unsigned int hours = 0; //for main function
+volatile unsigned int temperature = 0;
 
-
-ISR(TIMER0_OVF_vect){ 
+ISR( TIMER0_OVF_vect ){ 
     static uint8_t secondtick = 0;
     secondtick++;          //acts as interrupt counter for Timer 0
     if(secondtick == ticksPerSec){
@@ -58,18 +60,25 @@ ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
 
 
 
+
+
 int main(void){
 
 
     key_state = 0; //buttons not pressed initially	
 
-
+    char buff[10];
+    long temp; //debugging
+    
     initializeDebounceTimer(); //initializes compare match interrupt as well
     initializeSecondsTimer();
     initializeSecondsInterrupt();
     lcd_init(LCD_DISP_ON);
+    ADCInit();
+    ADCSelectTemp();
     lcd_clrscr();
-
+    
+    DDRC &= ~(1 << DD4); //Set PC4 as input
     DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5)); //setting PD0 and PD1 as input
     PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5)); //enable internal pullup-resistor for PD0 and PD1
     
@@ -78,6 +87,8 @@ int main(void){
  
 
     while(1){ //loops forever
+
+      
         
         placeNum(seconds,6,0);
         lcd_gotoxy(5,0);
@@ -86,6 +97,11 @@ int main(void){
         lcd_gotoxy(2,0);
         lcd_putc(':');
         placeNum(hours,0,0);
+        temp = ADC;
+        temp = ((temp*500)/(1023)) - 273;
+        ltoa(temp, buff, 10);
+        lcd_gotoxy(9,0);
+        lcd_puts(buff);
         lcd_gotoxy(11,1);
         lcd_puts("Alarm");
         

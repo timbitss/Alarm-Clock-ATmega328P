@@ -6,3 +6,9 @@ void initializeSecondsInterrupt(void){
 
 }
 
+void initializeADCInterrupt(void){
+
+    ADCSRA |= (1 << ADIE);
+
+}
+

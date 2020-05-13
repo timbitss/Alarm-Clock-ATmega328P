@@ -2,8 +2,10 @@
 #define UTILITIES_H
 
 #include <util/atomic.h>
+#include <stdlib.h>
 #include "GlobalDefinitions.h"
 #include "lcd.h"
+
 
 
 extern u8 key_state;				// debounced and inverted key state: bit = 1: key pressed

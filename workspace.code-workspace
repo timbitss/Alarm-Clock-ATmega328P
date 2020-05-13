@@ -11,6 +11,12 @@
 		},
 		{
 			"path": "..\\AVR-Programming\\AVR-Programming-Library"
+		},
+		{
+			"path": "..\\AVR-Programming\\Chapter07_Analog-to-Digital-Conversion-I\\slowScope"
+		},
+		{
+			"path": "..\\AVR-Programming\\Chapter07_Analog-to-Digital-Conversion-I\\lightSensor"
 		}
 	],
 	"settings": {}

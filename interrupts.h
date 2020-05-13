@@ -5,6 +5,7 @@
 #include <avr/io.h>
 
 
-void initializeSecondsInt(void); //initializes Timer 0 interrupts for seconds timer
+void initializeSecondsInterrupt(void); //initializes Timer 0 interrupts for seconds timer
+void initializeADCInterrupt(void); //initializes ADC interrupts
 
 #endif

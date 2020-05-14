@@ -89,29 +89,15 @@ int main(void){
     while(1){ //loops forever
 
       
+        placeTime(hours,minutes,seconds,0,0);
+        placeTemperature(temperature,12,0);
         
-        placeNum(seconds,6,0);
-        lcd_gotoxy(5,0);
-        lcd_putc(':');
-        placeNum(minutes,3,0);
-        lcd_gotoxy(2,0);
-        lcd_putc(':');
-        placeNum(hours,0,0);
-        placeTemperature(temperature,14,0);
         if(toggleAlarmFlag){
-        placeNum(almSeconds,6,1);
-        lcd_gotoxy(5,1);
-        lcd_putc(':');
-        placeNum(almMinutes,3,1);
-        lcd_gotoxy(2,1);
-        lcd_putc(':');
-        placeNum(almHours,0,1);
-        lcd_gotoxy(9,1);
-        lcd_puts("AlarmOn");
+            placeTime(almHours,almMinutes, almSeconds,0,1);
+            placeString("AlarmOn", 9, 1);
         }
         else{
-            lcd_gotoxy(0,1);
-            lcd_puts("                      "); //clears second row
+           placeString("                      ", 0,1);
         }
 
         if(get_key_press(1<<PIND6)){

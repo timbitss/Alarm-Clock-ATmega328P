@@ -13,7 +13,7 @@ u8 get_key_press( u8 key_mask )
   return key_mask;
 }
 
-void placeNum(unsigned int number, uint8_t startx, uint8_t y){ //places hours/minutes/seconds)
+static void placeNum(unsigned int number, uint8_t startx, uint8_t y){ //places hours/minutes/seconds)
         
         char buff[4]; //to store each digit
         lcd_gotoxy(startx + 1,y);
@@ -25,9 +25,28 @@ void placeNum(unsigned int number, uint8_t startx, uint8_t y){ //places hours/mi
 
 }
 
+void placeTime(unsigned int hours, unsigned int minutes, unsigned int seconds, uint8_t startx, uint8_t y){
+       
+        placeNum(seconds,startx+6,y);
+        lcd_gotoxy(startx+5,y);
+        lcd_putc(':');
+        placeNum(minutes,startx+3,y);
+        lcd_gotoxy(startx+2,y);
+        lcd_putc(':');
+        placeNum(hours,startx,y);
+}
+
 void placeTemperature(unsigned long number, uint8_t startx, uint8_t y){
         char buff[2];
         ltoa(number, buff, 10); //converts long to string
         lcd_gotoxy(startx,y);
         lcd_puts(buff);
+        lcd_gotoxy(startx+2, 0);
+        lcd_data(0b11011111);
+        lcd_putc('C');
+}
+
+void placeString(char* str, uint8_t startx, uint8_t y){
+  lcd_gotoxy(startx,y);
+  lcd_puts(str); //clears second row
 }

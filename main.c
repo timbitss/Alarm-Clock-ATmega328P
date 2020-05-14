@@ -27,6 +27,8 @@ volatile unsigned int minutes = 0; //for main function
 volatile unsigned int hours = 0; //for main function
 volatile unsigned long temperature = 0;
 
+
+
 ISR( TIMER0_OVF_vect ){ 
     static uint8_t secondtick = 0;
     secondtick++;          //acts as interrupt counter for Timer 0
@@ -35,12 +37,6 @@ ISR( TIMER0_OVF_vect ){
         seconds++;
         temperature = ((ADC*500)/(1023)); //update temperature every second
     }
-    if(seconds == 60){
-            seconds = 0;
-            minutes++;
-    }
-   
-    
 }
 
 
@@ -65,6 +61,12 @@ ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
 
 int main(void){
 
+    unsigned int almSeconds = 0;
+    unsigned int almMinutes = 0;
+    unsigned int almHours = 0;
+    uint8_t setAlarmFlag = 0; //1 = set alarm time
+    uint8_t toggleAlarmFlag = 0; //1 = alarm on
+
 
     key_state = 0; //buttons not pressed initially	
     
@@ -76,9 +78,9 @@ int main(void){
     ADCSelectTemp(); //free running mode
     lcd_clrscr();
     
-    DDRC &= ~(1 << DD4); //Set PC4 as input
-    DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5)); //setting PD0 and PD1 as input
-    PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5)); //enable internal pullup-resistor for PD0 and PD1
+    DDRC &= ~(1 << DD4); //Set PC4 as input (for ADC)
+    DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5) | (1<<DD6) | (1<<DD7)); //setting as input (for pushbuttons)
+    PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5) | (1<<PORT6) | (1<<PORT7)); //enable internal pullup-resistor 
     
 
     sei(); //enable global interrupts
@@ -96,25 +98,73 @@ int main(void){
         lcd_putc(':');
         placeNum(hours,0,0);
         placeTemperature(temperature,14,0);
-        lcd_gotoxy(11,1);
-        lcd_puts("Alarm");
+        if(toggleAlarmFlag){
+        placeNum(almSeconds,6,1);
+        lcd_gotoxy(5,1);
+        lcd_putc(':');
+        placeNum(almMinutes,3,1);
+        lcd_gotoxy(2,1);
+        lcd_putc(':');
+        placeNum(almHours,0,1);
+        lcd_gotoxy(9,1);
+        lcd_puts("AlarmOn");
+        }
+        else{
+            lcd_gotoxy(0,1);
+            lcd_puts("                      "); //clears second row
+        }
+
+        if(get_key_press(1<<PIND6)){
+            setAlarmFlag ^= 1; //toggle
+        }
+        if(get_key_press(1<<PIND7)){
+            toggleAlarmFlag ^= 1; //toggle
+        }
         
-        if( get_key_press(1<<PIND1)){ //check if seconds pushbutton is pressed
+        if (!setAlarmFlag){
+            if( get_key_press(1<<PIND1)){ //check if seconds pushbutton is pressed
+            minutes++;
+            }
+            if( get_key_press(1<<PIND0)){
+            seconds++;
+            }
+            if( get_key_press(1<<PIND5)){
+            hours++;
+            }
+        }
+        else{
+            if( get_key_press(1<<PIND1)){ //check if seconds pushbutton is pressed
+                almMinutes++;
+            }
+            if( get_key_press(1<<PIND0)){
+                almSeconds++;
+                
+            }
+            if( get_key_press(1<<PIND5)){
+                almHours++;
+            }        
+        }
+        if(seconds == 60){
+            seconds = 0;
             minutes++;
         }
-        if( get_key_press(1<<PIND0)){
-            seconds++;
-        }
-        if( get_key_press(1<<PIND5)){
-            hours++;
-        }
-        
         if(minutes == 60){
             minutes = 0;
             hours++;
         }
         if( hours == 24){
             hours = 0;
+        }
+        if(almMinutes == 60){
+            almMinutes = 0;
+            almHours++;
+        }
+        if(almSeconds == 60){
+            almSeconds = 0;
+            almMinutes++;
+        }
+        if(almHours == 24){
+            almHours = 0;
         }
 
     } 

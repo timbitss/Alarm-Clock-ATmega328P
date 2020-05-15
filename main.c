@@ -10,6 +10,7 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
+#include <avr/pgmspace.h>
 
 
 #include "lcd.h"
@@ -22,11 +23,10 @@
 
 #define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
-volatile unsigned int seconds = 0; //for main function
-volatile unsigned int minutes = 0; //for main function
-volatile unsigned int hours = 0; //for main function
-volatile unsigned long temperature = 0;
-
+static volatile unsigned int seconds = 0; //for main.c
+static volatile unsigned int minutes = 0; //for main.c
+static volatile unsigned int hours = 0; //for main.c
+static volatile unsigned long temperature = 0;
 
 
 ISR( TIMER0_OVF_vect ){ 

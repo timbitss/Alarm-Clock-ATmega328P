@@ -530,13 +530,9 @@ END GROUP
                 0x00800122        0x1 main.o
  .bss.temperature
                 0x00800123        0x4 main.o
-                0x00800123                temperature
  .bss.hours     0x00800127        0x2 main.o
-                0x00800127                hours
  .bss.minutes   0x00800129        0x2 main.o
-                0x00800129                minutes
  .bss.seconds   0x0080012b        0x2 main.o
-                0x0080012b                seconds
  *(COMMON)
  COMMON         0x0080012d        0x2 utilities.o
                 0x0080012d                key_press
@@ -637,25 +633,25 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x19ec
+.debug_info     0x00000000     0x19f3
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_info    0x000005f4       0x99 ADC.o
  .debug_info    0x0000068d       0x99 interrupts.o
  .debug_info    0x00000726      0x77f lcd.o
- .debug_info    0x00000ea5      0x3b4 main.o
- .debug_info    0x00001259       0x99 timers.o
- .debug_info    0x000012f2      0x6fa utilities.o
+ .debug_info    0x00000ea5      0x3b0 main.o
+ .debug_info    0x00001255       0x99 timers.o
+ .debug_info    0x000012ee      0x705 utilities.o
 
-.debug_abbrev   0x00000000      0xcb9
+.debug_abbrev   0x00000000      0xca8
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2       0x51 ADC.o
  .debug_abbrev  0x000005f3       0x51 interrupts.o
  .debug_abbrev  0x00000644      0x2be lcd.o
- .debug_abbrev  0x00000902      0x137 main.o
- .debug_abbrev  0x00000a39       0x51 timers.o
- .debug_abbrev  0x00000a8a      0x22f utilities.o
+ .debug_abbrev  0x00000902      0x126 main.o
+ .debug_abbrev  0x00000a28       0x51 timers.o
+ .debug_abbrev  0x00000a79      0x22f utilities.o
 
 .debug_line     0x00000000      0xa48
  *(.debug_line .debug_line.* .debug_line_end)

@@ -46,7 +46,7 @@ void placeTemperature(unsigned long number, uint8_t startx, uint8_t y){
         lcd_putc('C');
 }
 
-void placeString(char* str, uint8_t startx, uint8_t y){
+void placeString(const char* str, uint8_t startx, uint8_t y){
   lcd_gotoxy(startx,y);
-  lcd_puts(str); //clears second row
+  lcd_puts(str); 
 }

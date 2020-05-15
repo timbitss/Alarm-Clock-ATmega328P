@@ -15,7 +15,7 @@ u8 get_key_press( u8 key_mask ); //gets key press from bank of pins
 
 void placeTemperature(unsigned long number, uint8_t startx, uint8_t y); //places temp
 void placeTime(unsigned int hours, unsigned int minutes, unsigned int seconds, uint8_t startx, uint8_t y);
-void placeString(char* str, uint8_t startx, uint8_t y);
+void placeString(const char* str, uint8_t startx, uint8_t y);
 
 
 #endif

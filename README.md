@@ -1,3 +1,3 @@
-# Alarm Clock Project Summer 2020
-Author: Timothy Nguyen\
+# Personal Alarm Clock Using Atmega328P 
+Author: Timothy Nguyen
 Purpose: Exploring AVR Microcontrollers

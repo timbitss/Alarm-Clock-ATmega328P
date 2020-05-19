@@ -79,7 +79,7 @@ int main(void){
 
     DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5) | (1<<DD6) | (1<<DD7)); //setting as input (for pushbuttons)
     PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5) | (1<<PORT6) | (1<<PORT7)); //enable internal pullup-resistor 
-
+    DDRC &= ~(1<<PC4); //ensure sensor pin is set as input
 
     sei();
  
@@ -89,6 +89,13 @@ int main(void){
 
     
         placeTime(hours,minutes,seconds,0,0);
+
+        if(bit_is_set(PINC, PC4)){ // for PIR motion sensor
+            placeString("Motion", 9, 0);
+        }
+        else{
+            placeString("       ", 9, 0);
+        }
 
      
         if(toggleAlarmFlag){

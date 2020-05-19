@@ -2,7 +2,7 @@
 // Author: Timothy Nguyen
 // Features: Displays Adjustable Time
 //
-//test
+//
 //
 // Credits: Peter Dannegger for Debouncing Technique, Peter Fleury for LCD Driver and Controller  
 

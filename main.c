@@ -19,7 +19,7 @@
 #include "utilities.h"
 #include "GlobalDefinitions.h"
 #include "ADC.h"
-
+#include "SPI.h"
 
 #define ticksPerSec 61 //number of interrupts per second with prescaler of 64
 
@@ -60,11 +60,13 @@ ISR( TIMER2_COMPA_vect )		// every 10ms (Sampling 4 times)
 
 int main(void){
 
-    unsigned int almSeconds = 0;
-    unsigned int almMinutes = 0;
-    unsigned int almHours = 0;
-    uint8_t setAlarmFlag = 0; //1 = set alarm time
-    uint8_t toggleAlarmFlag = 0; //1 = alarm on
+    static unsigned int almSeconds = 0;
+    static unsigned int almMinutes = 0;
+    static unsigned int almHours = 0;
+    static uint8_t setAlarmFlag = 0; //1 = set alarm time
+    static uint8_t toggleAlarmFlag = 0; //1 = alarm on
+    static uint8_t temp;
+    static uint32_t temperature;
 
     key_state = 0; //buttons not pressed initially	
     
@@ -90,6 +92,15 @@ int main(void){
 
     
         placeTime(hours,minutes,seconds,0,0);
+
+        SPI_StartTransmission;
+        SPI_MasterTransmitReceive(TEMPSTARTBYTE);
+        temp = SPI_MasterTransmitReceive(TEMPSELCHANNEL0);
+        temp &= 0x03; //only care about last two bits
+        temperature = (temp << 8) | SPI_MasterTransmitReceive(TEMPSELCHANNEL0); //temperature variable contains 10-bit ADC value
+        SPI_EndTransmission;
+        temperature = (temperature * 500) / 1023; //converting to temperature
+        placeTemperature(temperature, 0, 0);
         
         if(toggleAlarmFlag){
             placeTime(almHours,almMinutes, almSeconds,0,1);

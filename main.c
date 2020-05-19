@@ -26,7 +26,7 @@
 static volatile unsigned int seconds = 0; //for main.c
 static volatile unsigned int minutes = 0; //for main.c
 static volatile unsigned int hours = 0; //for main.c
-static volatile unsigned long temperature = 0;
+
 
 
 ISR( TIMER0_OVF_vect ){ 
@@ -35,7 +35,6 @@ ISR( TIMER0_OVF_vect ){
     if(secondtick == ticksPerSec){
         secondtick = 0;
         seconds++;
-        temperature = ((ADC*500)/(1023)); //update temperature every second
     }
 }
 
@@ -67,7 +66,6 @@ int main(void){
     uint8_t setAlarmFlag = 0; //1 = set alarm time
     uint8_t toggleAlarmFlag = 0; //1 = alarm on
 
-
     key_state = 0; //buttons not pressed initially	
     
     initializeDebounceTimer(); //initializes compare match interrupt as well
@@ -77,20 +75,21 @@ int main(void){
     ADCInit();
     ADCSelectTemp(); //free running mode
     lcd_clrscr();
-    
+    SPI_MasterInit(); //for temperature sensor
+
     DDRC &= ~(1 << DD4); //Set PC4 as input (for ADC)
     DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5) | (1<<DD6) | (1<<DD7)); //setting as input (for pushbuttons)
     PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5) | (1<<PORT6) | (1<<PORT7)); //enable internal pullup-resistor 
-    
+    DDRB |= ((1 << SS)) ; //enable PB2 (SS) as output
 
-    sei(); //enable global interrupts
+    sei();
  
 
     while(1){ //loops forever
 
-      
+
+    
         placeTime(hours,minutes,seconds,0,0);
-        placeTemperature(temperature,12,0);
         
         if(toggleAlarmFlag){
             placeTime(almHours,almMinutes, almSeconds,0,1);

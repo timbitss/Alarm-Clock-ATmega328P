@@ -1,3 +1,3 @@
 # Personalized Alarm Clock Using ATmega328P 
 
-  I explored key concepts in electronics such as timers, interrupts, programmable flash memory, PWM, DPCM, PIR motion sensors, and button debouncing using software to create a personalized alarm clock. I implemented a snooze alarm that is enabled through motion detection and audio that can play back WAV files.
+I explored concepts in electronics such as timers, interrupts, programmable flash memory, PWM, filters, PIR motion sensors, and button debouncing using software to create a personal alarm clock. I implemented simple melodies using PWM and the ATmega's built-in flash memory as well as a snooze setting enabled through motion detection.

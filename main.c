@@ -65,6 +65,7 @@ int main(void){
     static unsigned int almHours = 0;
     static uint8_t setAlarmFlag = 0; //1 = set alarm time
     static uint8_t toggleAlarmFlag = 0; //1 = alarm on
+    static uint8_t motionFlag = 0; // 1 = motion activated
  
 
     key_state = 0; //buttons not pressed initially	
@@ -87,11 +88,11 @@ int main(void){
 
     while(1){ //loops forever
 
-
+        motionFlag = bit_is_set(PINC, PC4);
     
         placeTime(hours,minutes,seconds,0,0);
 
-        if(bit_is_set(PINC, PC4)){ // for PIR motion sensor
+        if(motionFlag){ // for PIR motion sensor
             placeString("Motion", 9, 0);
         }
         else{
@@ -160,14 +161,18 @@ int main(void){
             almHours = 0;
         }
         
-        if(toggleAlarmFlag){
+        if(toggleAlarmFlag){ //for outputting audio when hours and minutes match
 
             if((hours == almHours) && (minutes == almMinutes)){
                 initializeSoundTimer(29);
+                if(motionFlag){ 
+                    almMinutes += 9;
+                }
             }
             else{
                 disableSoundTimer;
             }
+        
             
         }
 

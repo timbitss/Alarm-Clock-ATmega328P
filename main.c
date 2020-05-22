@@ -72,11 +72,12 @@ int main(void){
     initializeDebounceTimer(); //initializes compare match interrupt as well
     initializeSecondsTimer();
     initializeSecondsInterrupt();
+   
     lcd_init(LCD_DISP_ON);
     lcd_clrscr();
 
 
-
+    
     DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5) | (1<<DD6) | (1<<DD7)); //setting as input (for pushbuttons)
     PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5) | (1<<PORT6) | (1<<PORT7)); //enable internal pullup-resistor 
     DDRC &= ~(1<<PC4); //ensure sensor pin is set as input
@@ -157,6 +158,17 @@ int main(void){
         }
         if(almHours == 24){
             almHours = 0;
+        }
+        
+        if(toggleAlarmFlag){
+
+            if((hours == almHours) && (minutes == almMinutes)){
+                initializeSoundTimer(29);
+            }
+            else{
+                disableSoundTimer;
+            }
+            
         }
 
     } 

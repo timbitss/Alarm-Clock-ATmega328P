@@ -18,17 +18,16 @@ void initializeDebounceTimer(void){
 
 }
 
-void initializeSoundTimer(uint8_t value){
+void initializeSoundTimer(void){
 
-    TCCR1A = ((1<<COM1A0) | (1<<WGM11) | (1<<WGM10)); //fast PWM mode, toggle on compare match to act as square wave
-    OCR1A = value; //toggle OC1A on compare match 
+    TCCR1A |= ((1<<COM1A0) | (1<<WGM11) | (1<<WGM10)); //fast PWM mode, toggle on compare match to act as square wave
     DDRB |= (1<<PB1); //set pin as output
-    TCCR1B = ((1<<WGM13) | (1<<WGM12) | (1<<CS11) | (1<<CS10)); //select clock
+    TCCR1B |= ((1<<WGM13) | (1<<WGM12)); 
     
 
 }
 
-void setSoundPitch(uint8_t value){ 
+void setSoundPitch(const uint16_t value){ 
 
     OCR1A = value; //change output compare register
 

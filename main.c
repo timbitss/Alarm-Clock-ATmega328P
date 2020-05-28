@@ -62,8 +62,6 @@ int main(void){
     static uint8_t setAlarmFlag = 0; //1 = set alarm time
     static uint8_t toggleAlarmFlag = 0; //1 = alarm on
     static uint8_t motionFlag = 0; // 1 = motion detected
-    
-    uint16_t test = 50;
     notesPTR = notes;
  
 
@@ -159,8 +157,6 @@ int main(void){
         if(almHours == 24){
             almHours = 0;
         }
-
-        
 
        
         if((pgm_read_byte(notesPTR) == 0)){

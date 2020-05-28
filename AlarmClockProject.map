@@ -651,23 +651,23 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1a2d
+.debug_info     0x00000000     0x1a23
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_info    0x000005f4       0x99 interrupts.o
  .debug_info    0x0000068d      0x77f lcd.o
- .debug_info    0x00000e0c      0x430 main.o
- .debug_info    0x0000123c       0xec timers.o
- .debug_info    0x00001328      0x705 utilities.o
+ .debug_info    0x00000e0c      0x426 main.o
+ .debug_info    0x00001232       0xec timers.o
+ .debug_info    0x0000131e      0x705 utilities.o
 
-.debug_abbrev   0x00000000      0xcb8
+.debug_abbrev   0x00000000      0xca9
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2       0x51 interrupts.o
  .debug_abbrev  0x000005f3      0x2be lcd.o
- .debug_abbrev  0x000008b1      0x157 main.o
- .debug_abbrev  0x00000a08       0x81 timers.o
- .debug_abbrev  0x00000a89      0x22f utilities.o
+ .debug_abbrev  0x000008b1      0x148 main.o
+ .debug_abbrev  0x000009f9       0x81 timers.o
+ .debug_abbrev  0x00000a7a      0x22f utilities.o
 
 .debug_line     0x00000000      0xa1a
  *(.debug_line .debug_line.* .debug_line_end)
@@ -686,25 +686,25 @@ END GROUP
  .debug_frame   0x000001e4       0x54 timers.o
  .debug_frame   0x00000238       0xd0 utilities.o
 
-.debug_str      0x00000000      0x66c
+.debug_str      0x00000000      0x667
  *(.debug_str)
  .debug_str     0x00000000      0x208 c:/program files/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x14f interrupts.o
                                 0x183 (size before relaxing)
  .debug_str     0x00000357      0x130 lcd.o
                                 0x27e (size before relaxing)
- .debug_str     0x00000487      0x132 main.o
-                                0x2ca (size before relaxing)
- .debug_str     0x000005b9        0xf timers.o
+ .debug_str     0x00000487      0x12d main.o
+                                0x2c5 (size before relaxing)
+ .debug_str     0x000005b4        0xf timers.o
                                 0x1ae (size before relaxing)
- .debug_str     0x000005c8       0xa4 utilities.o
+ .debug_str     0x000005c3       0xa4 utilities.o
                                 0x27e (size before relaxing)
 
-.debug_loc      0x00000000      0xcb5
+.debug_loc      0x00000000      0xcc8
  *(.debug_loc)
  .debug_loc     0x00000000      0x619 lcd.o
- .debug_loc     0x00000619      0x139 main.o
- .debug_loc     0x00000752      0x563 utilities.o
+ .debug_loc     0x00000619      0x14c main.o
+ .debug_loc     0x00000765      0x563 utilities.o
 
 .debug_macinfo
  *(.debug_macinfo)

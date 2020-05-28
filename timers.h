@@ -4,8 +4,8 @@
 
 #include <avr/io.h>
 
-#define disableSoundTimer TCCR1B &= ~((1<<CS11)|(1<<CS10))
-#define enableSoundTimer TCCR1B |=  ((1<<CS11) | (1<<CS10));
+#define disableSoundTimer  DDRB &= ~(1<<PB1)
+#define enableSoundTimer   DDRB |= (1<<PB1) //set pin as output
 
 void initializeSecondsTimer(void); //initialize seconds timer (T0)
 

@@ -21,7 +21,7 @@ static volatile unsigned int seconds = 0; //for main.c
 static volatile unsigned int minutes = 0; //for main.c
 static volatile unsigned int hours = 0; //for main.c
 static const uint16_t notes[] PROGMEM = {20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 0}; //notes to play
-
+static const uint16_t* notesPTR;
 
 
 ISR( TIMER0_OVF_vect ){ 
@@ -31,6 +31,7 @@ ISR( TIMER0_OVF_vect ){
     if(secondtick == ticksPerSec){
         secondtick = 0;
         seconds++;
+        notesPTR++;
     }
     
     
@@ -61,9 +62,10 @@ int main(void){
     static uint8_t setAlarmFlag = 0; //1 = set alarm time
     static uint8_t toggleAlarmFlag = 0; //1 = alarm on
     static uint8_t motionFlag = 0; // 1 = motion detected
-    const uint16_t* notesPTR;
-      
+    
+    uint16_t test = 50;
     notesPTR = notes;
+ 
 
     key_state = 0; //buttons not pressed initially	
     
@@ -78,6 +80,7 @@ int main(void){
     DDRD &= ~((1<<DD0) | (1<<DD1) | (1<<DD5) | (1<<DD6) | (1<<DD7)); //setting as input (for pushbuttons)
     PORTD |= ((1<<PORT0) | (1<<PORT1) | (1<<PORT5) | (1<<PORT6) | (1<<PORT7)); //enable internal pullup-resistor 
     DDRC &= ~(1<<PC4); //ensure sensor pin is set as input
+    
 
     sei();
  
@@ -157,20 +160,20 @@ int main(void){
             almHours = 0;
         }
 
-
-        if(seconds % 2 == 1){
-            notesPTR++;
-        }
         
 
+       
         if((pgm_read_byte(notesPTR) == 0)){
             notesPTR = notes;
         }
+        
+        setSoundPitch(pgm_read_word(notesPTR));
+
 
         if(toggleAlarmFlag){ //for outputting audio when hours and minutes match
 
             if((hours == almHours) && (minutes == almMinutes)){
-                setSoundPitch(pgm_read_byte(notesPTR));
+                
                 enableSoundTimer;
                 if(motionFlag){ 
                     almMinutes += 9;

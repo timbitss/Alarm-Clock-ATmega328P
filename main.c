@@ -1,6 +1,6 @@
 // Alarm Clock Project
 // Author: Timothy Nguyen
-// Credits: Peter Dannegger for Debouncing Technique, Peter Fleury for LCD Driver and Controller, Elliot Williams for Inspiration  
+// Credits: Peter Dannegger for Debouncing Technique, Peter Fleury for LCD Driver and Controller, Elliot Williams for Inspiration and Makefile 
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -20,7 +20,7 @@
 static volatile unsigned int seconds = 0; //for main.c
 static volatile unsigned int minutes = 0; //for main.c
 static volatile unsigned int hours = 0; //for main.c
-static const uint16_t notes[] PROGMEM = {20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 0}; //notes to play
+static const uint16_t notes[] PROGMEM = {20, 25, 0}; //notes to play
 static const uint16_t* notesPTR;
 
 
@@ -32,6 +32,7 @@ ISR( TIMER0_OVF_vect ){
         secondtick = 0;
         seconds++;
         notesPTR++;
+        
     }
     
     
@@ -85,16 +86,14 @@ int main(void){
 
     while(1){ //loops forever
 
-        motionFlag = 0; //bit_is_set(PINC, PC4)
-    
-        placeTime(hours,minutes,seconds,0,0);
-
-        if(motionFlag){ // for PIR motion sensor
-            placeString("Motion", 9, 0);
+        if(bit_is_set(PINC, PC4)){
+        motionFlag = 1;
         }
         else{
-            placeString("       ", 9, 0);
+        motionFlag = 0; 
         }
+            
+        placeTime(hours,minutes,seconds,0,0);
 
      
         if(toggleAlarmFlag){
@@ -162,6 +161,10 @@ int main(void){
         if((pgm_read_byte(notesPTR) == 0)){
             notesPTR = notes;
         }
+
+        if(seconds == 0){
+        notesPTR = notes;
+        }        
         
         setSoundPitch(pgm_read_word(notesPTR));
 
@@ -183,9 +186,7 @@ int main(void){
             disableSoundTimer;
         }
 
-    } 
-
-
+    }
 
     return 0;
 }

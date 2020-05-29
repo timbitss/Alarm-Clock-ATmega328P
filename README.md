@@ -4,5 +4,4 @@ I explored concepts such as timers, interrupts, programmable flash memory, PWM, 
 
 [Youtube](https://www.youtube.com/watch?v=kTxh9s--ILE "Alarm Clock")
 
-![IMG_1614](https://user-images.githubusercontent.com/55927496/83222783-0d2f6980-a12e-11ea-99a4-a0eaa01bfcba.jpg)
-
+![IMG_1614](https://user-images.githubusercontent.com/55927496/83223139-06edbd00-a12f-11ea-8f2f-2e63406e326d.jpg)

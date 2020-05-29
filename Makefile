@@ -11,7 +11,7 @@ BAUD  = 9600UL
 
 ## A directory for common include files and the simple USART library.
 ## If you move either the current folder or the Library folder, you'll 
-##  need to change this path to match.
+##  need to change this path to match. //not required
 LIBDIR = C:\Users\Timothy\Desktop\AVR-Programming\AVR-Programming-Library
 
 ##########------------------------------------------------------##########
@@ -52,7 +52,7 @@ TARGET = $(lastword $(subst /, ,$(CURDIR)))
 # Object files: will find all .c/.h files in current directory
 #  and in LIBDIR.  If you have any other (sub-)directories with code,
 #  you can add them in to SOURCES below in the wildcard statement.
-SOURCES=$(wildcard *.c $(LIBDIR)/*.c)
+SOURCES=$(wildcard */*.c $(LIBDIR)/*.c ))
 OBJECTS=$(SOURCES:.c=.o)
 HEADERS=$(SOURCES:.c=.h)
 
